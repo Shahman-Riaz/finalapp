@@ -7,9 +7,9 @@ function App() {
  const [ persons, setPersons] = useState([])
   useEffect(() => 
   {
-    fetch('https://jsonplaceholder.typicode.com/users')
+    fetch('https://randomuser.me/api/?results=5')
     .then(res => res.json())
-    .then(data => setPersons(data))
+    .then(data => setPersons(data.results))
   }, [])
 //https://randomuser.me/api/?results=5
 //https://jsonplaceholder.typicode.com/users
@@ -20,8 +20,14 @@ function App() {
         
         
         {
-          persons.map(usr => <ProfileCard gender={usr.gender} postcode={usr.postcode}></ProfileCard>)
-          
+          persons.map(usr => <ProfileCard name={usr.name.title}
+             firstName={usr.name.first}
+            lastName={ usr.name.last} 
+            picture={usr.picture.large} 
+            state={usr.location.state} 
+            country={usr.location.country} 
+            email={usr.email} 
+            phone={usr.phone}></ProfileCard>)
         }
        
         
@@ -32,29 +38,27 @@ function App() {
 
 
   function ProfileCard(props){
-    
-      const wordSpacing= {
-        wordSpacing:'80px'
-      }
       const profCard = {
         backgroundColor:'gray',
-        borderRadius:'20px'
-
+        borderRadius:'20px',
+        margin:'10px',
+        height: '400px',
+        width: '350px',
+        overflow:'hidden'
       }
       const nameStyle={
         padding:'3px',
         color:'blue'
       }
     return(
-      <div style={profCard}>
-        <div ><img src="picture.thumbnail"></img></div>
-        <h6>  location.city location.state location.country</h6>
-        <div style={nameStyle}><h3></h3></div>
-        <div style={wordSpacing}><p>dob.email cell</p></div>
-        <p>Gender: {props.gender} </p>
-        <p> Age: registered.age {props.postcode}</p>
-
-
+      <div style={profCard}>  
+        <div>
+        <div><img src={props.picture} style={{borderRadius:'50%', marginTop:'30px'}}></img></div>
+        <div style={nameStyle}><h2><u style={{cursor:'pointer'}}>{props.name} {props.firstName} {props.lastName}</u></h2></div>
+        
+        <p>{props.email}</p>
+        <p>{props.phone}</p>
+        </div>
       </div>
     )
   }
