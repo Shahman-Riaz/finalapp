@@ -82,6 +82,12 @@ function App() {
     return (
       <div>
         <h1>Count: {count}</h1>
+        
+        <FoodCount numFood={count + 1}></FoodCount>
+        <FoodCount numFood={count + 2}></FoodCount>
+        <FoodCount numFood={count + 3}></FoodCount>
+         
+        <br/>
         <button onClick={handleIncrease} style={{backgroundColor:'yellow',
       height:'50px', width:'120px', fontSize:'20px',borderRadius:'20px', cursor:'pointer'}}>Increase</button>
       
@@ -98,7 +104,11 @@ function App() {
     )
    }
 
-
+    function FoodCount(props){
+      return(
+        <div>Apple: {props.numFood}</div>
+      )
+    }
 
 // function MovieCounter() { 
 //   const [ count,setCount ] = useState(5);
